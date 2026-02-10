@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FX TAE Journaling Dashboard | Professional Trading Journal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <h2>Fx Tae Charts Trading Journal</h2>
+            <p>Loading Professional Trading Dashboard...</p>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer" style="display: none;">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h1>FX TAE <span>CHARTS JOURNAL</span></h1>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="date-display" id="currentDate"></div>
+                <div class="account-balance-display">
+                    <span class="balance-label">Balance:</span>
+                    <span class="balance-value" id="accountBalance">$0.00</span>
+                </div>
+            
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <p class="user-name" id="userName">Trader</p>
+                        <p class="user-email" id="userEmail">trader@example.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-item" data-page="journal"><i class="fas fa-book"></i> Trade Journal</a></li>
+                <li><a href="#" class="nav-item" data-page="analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="#" class="nav-item" data-page="goals"><i class="fas fa-bullseye"></i> Goals</a></li>
+                <li><a href="#" class="nav-item" data-page="community"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="#" class="nav-item" data-page="resources"><i class="fas fa-link"></i> Resources</a></li>
+                <li><a href="#" class="nav-item" data-page="mindset"><i class="fas fa-brain"></i> Trader's Mindset</a></li>
+                <li><a href="#" class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" class="nav-item" data-page="contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Dashboard Page -->
+            <section class="page active" id="dashboard">
+                <!-- Mentorship Banner -->
+                <div class="mentorship-banner">
+                    <h3><i class="fas fa-crown"></i> JOIN THE 1% TRADING CIRCLE</h3>
+                    <a href="https://fxtaetrader.page.gd/" class="join-1percent-btn" target="_blank">
+                        <i class="fas fa-rocket"></i> JOIN NOW
+                    </a>
+                </div>
+
+                <div class="page-header">
+                    <h2>Professional Trading Dashboard</h2>
+                    <button class="export-btn" onclick="exportDashboardPDF()">
+                        <i class="fas fa-file-pdf"></i> Export Dashboard PDF
+                    </button>
+                </div>
+
+                <!-- Performance Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card blue-card">
+                        <div class="stat-header">
+                            <h3><i class="fas fa-calendar-day"></i> Today's P&L</h3>
+                            <div class="stat-actions">
+                                <button class="edit-trades-btn" onclick="editTodayTrades()">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="download-btn" onclick="downloadTodayStats()">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="todayPnl">$0.00</div>
+                        <div class="stat-details" id="todayTradesList">No trades today</div>
+                        <div class="stat-change">Start trading to see performance</div>
+                    </div>
+
+                    <div class="stat-card purple-card">
+                        <div class="stat-header">
+                            <h3><i class="fas fa-exchange-alt"></i> Today's Trades</h3>
+                            <div class="stat-actions">
+                                <button class="edit-trades-btn" onclick="editTodayTrades()">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="todayTradesCount">0/4</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span>0% Daily Limit</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card green-card">
+                        <div class="stat-header">
+                            <h3><i class="fas fa-calendar-week"></i> Weekly Performance</h3>
+                            <div class="stat-actions">
+                                <button class="download-btn" onclick="downloadWeeklyStats()">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="stat-value" id="weeklyPnl">$0.00</div>
+                        <div class="stat-details" id="weeklyTradesList">No weekly trades</div>
+                        <div class="stat-change">Weekly performance will appear here</div>
+                    </div>
+
+                    <div class="stat-card orange-card">
+                        <div class="stat-header">
+                            <h3><i class="fas fa-calendar-alt"></i> Monthly Performance</h3>
+                            <div class="stat-actions">
+                                <button class="download-btn" onclick="downloadMonthlyStats()">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                       <div class="stat-value" id="monthlyPnl">$0.00</div>
+                        <div class="stat-details" id="monthlyTradesList">No monthly trades</div>
+                        <div class="stat-change">Monthly performance will appear here</div>
+                    </div>
+                </div>
+
+                <!-- Account Balance Manager -->
+                <div class="balance-manager-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-wallet"></i> Account Balance Manager</h3>
+                    </div>
+                    
+                    <div class="balance-form">
+                        <div class="balance-input-group">
+                            <label><i class="fas fa-dollar-sign"></i> Current Balance ($)</label>
+                            <div class="input-with-icon">
+                                <span class="input-icon">$</span>
+                                <input type="number" id="currentBalanceInput" class="form-input" placeholder="Enter current balance" readonly>
+                            </div>
+                            <p class="balance-note">Auto-updated from trades & withdrawals</p>
+                        </div>
+                        
+                        <div class="balance-stats">
+                            <div class="balance-stat">
+                                <div class="balance-stat-header">
+                                    <span class="stat-label">Starting Balance</span>
+                                    <button class="edit-starting-balance-btn" onclick="editStartingBalance()" title="Edit Starting Balance">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                                <div class="balance-stat-content">
+                                    <span class="stat-value" id="startingBalance">$10,000.00</span>
+                                    <input type="number" id="startingBalanceInput" class="edit-input" style="display: none;" placeholder="Enter new starting balance" step="0.01" min="0">
+                                </div>
+                                <div class="edit-buttons">
+                                    <button id="saveBalanceBtn" class="save-balance-btn" onclick="saveStartingBalance()" style="display: none;">
+                                        <i class="fas fa-check"></i> Save
+                                    </button>
+                                    <button id="cancelBalanceBtn" class="cancel-balance-btn" onclick="cancelStartingBalanceEdit()" style="display: none;">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="balance-stat">
+                                <span class="stat-label">Total Growth</span>
+                                <span class="stat-value" id="totalGrowth">$0.00</span>
+                            </div>
+                            <div class="balance-stat">
+                                <span class="stat-label">Growth %</span>
+                                <span class="stat-value" id="growthPercentage">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Withdrawal Manager -->
+                <div class="withdrawal-manager-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-money-bill-wave"></i> Withdrawal Manager</h3>
+                    </div>
+                    
+                    <form class="withdrawal-form" id="withdrawalForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="far fa-calendar"></i> Withdrawal Date</label>
+                                <input type="date" id="withdrawalDate" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="far fa-clock"></i> Withdrawal Time</label>
+                                <input type="time" id="withdrawalTime" class="form-input" value="09:30" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-university"></i> Broker Name</label>
+                                <select id="withdrawalBroker" class="form-input" required>
+                                    <option value="">Select Broker</option>
+                                    <option value="Exness">Exness</option>
+                                    <option value="XM">XM</option>
+                                    <option value="FBS">FBS</option>
+                                    <option value="IC Markets">IC Markets</option>
+                                    <option value="Pepperstone">Pepperstone</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-hand-holding-usd"></i> Withdrawal Amount ($)</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" step="0.01" id="withdrawalAmount" class="form-input" placeholder="Enter amount to withdraw" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-file-invoice-dollar"></i> New Balance After Withdrawal</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" id="newBalanceAfterWithdrawal" class="form-input" placeholder="Auto-calculated" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-sticky-note"></i> Notes</label>
+                                <input type="text" id="withdrawalNotes" class="form-input" placeholder="Purpose of withdrawal...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-primary" onclick="processWithdrawal()">
+                                <i class="fas fa-paper-plane"></i> Process Withdrawal
+                            </button>
+                            <button type="button" class="btn-secondary" onclick="saveAndDownloadWithdrawal()">
+                                <i class="fas fa-download"></i> Save & Download PDF
+                            </button>
+                            <button type="reset" class="btn-outline">
+                                <i class="fas fa-redo"></i> Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line"></i> Equity Curve</h3>
+                            <div class="chart-period">
+                                <button class="period-btn active" data-period="7d">7D</button>
+                                <button class="period-btn" data-period="1m">1M</button>
+                                <button class="period-btn" data-period="12m">12M</button>
+                            </div>
+                        </div>
+                        <div class="chart-canvas-container">
+                            <canvas id="equityChart"></canvas>
+                        </div>
+                        <div class="chart-download-btn">
+                            <button class="btn-secondary" onclick="downloadChartAsPDF('equityChart', 'Equity_Curve')">
+                                <i class="fas fa-download"></i> Download Chart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-pie"></i> Win Rate Analysis</h3>
+                            <div class="win-rate">
+                                <span class="rate-value" id="winRateValue">0%</span>
+                                <span class="rate-label">Win Rate</span>
+                            </div>
+                        </div>
+                        <div class="chart-canvas-container">
+                            <canvas id="winRateChart"></canvas>
+                        </div>
+                        <div class="chart-download-btn">
+                            <button class="btn-secondary" onclick="downloadChartAsPDF('winRateChart', 'Win_Rate_Analysis')">
+                                <i class="fas fa-download"></i> Download Chart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Trade Entry -->
+                <div class="trade-entry-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-bolt"></i> Quick Trade Entry</h3>
+                        <button class="btn-secondary" onclick="saveAndDownloadTrade()">
+                            <i class="fas fa-save"></i> Save & Download
+                        </button>
+                    </div>
+                    
+                    <form class="trade-form" id="tradeForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="far fa-calendar"></i> Date</label>
+                                <input type="date" id="tradeDate" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="far fa-clock"></i> Time</label>
+                                <input type="time" id="tradeTime" class="form-input" value="09:30" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-hashtag"></i> Trade # (1-4)</label>
+                                <select id="tradeNumber" class="form-input" required>
+                                    <option value="1">Trade 1</option>
+                                    <option value="2">Trade 2</option>
+                                    <option value="3">Trade 3</option>
+                                    <option value="4">Trade 4</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-chess-knight"></i> Strategy</label>
+                                <div class="strategy-input-group">
+                                    <select id="strategy" class="form-input" required>
+                                        <option value="Breakout">Breakout Trading</option>
+                                        <option value="Trend">Trend Following</option>
+                                        <option value="Scalping">Scalping</option>
+                                        <option value="Swing">Swing Trading</option>
+                                        <option value="Price Action">Price Action</option>
+                                        <option value="News Trading">News Trading</option>
+                                        <option value="Supply Demand">Supply & Demand</option>
+                                    </select>
+                                    <button type="button" class="btn-secondary" onclick="showCustomStrategy()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" id="customStrategy" class="form-input" style="display: none; margin-top: 0.5rem;" placeholder="Enter custom strategy name">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-globe"></i> Currency Pair / Instrument</label>
+                                <select id="currencyPair" class="form-input" required>
+                                    <optgroup label="Major Forex">
+                                        <option value="EUR/USD">EUR/USD</option>
+                                        <option value="GBP/USD">GBP/USD</option>
+                                        <option value="USD/JPY">USD/JPY</option>
+                                        <option value="AUD/USD">AUD/USD</option>
+                                        <option value="USD/CAD">USD/CAD</option>
+                                        <option value="NZD/USD">NZD/USD</option>
+                                        <option value="USD/CHF">USD/CHF</option>
+                                        <option value="EUR/GBP">EUR/GBP</option>
+                                        <option value="EUR/JPY">EUR/JPY</option>
+                                        <option value="GBP/JPY">GBP/JPY</option>
+                                    </optgroup>
+                                    <optgroup label="Metals">
+                                        <option value="XAU/USD">XAU/USD (Gold)</option>
+                                        <option value="XAG/USD">XAG/USD (Silver)</option>
+                                    </optgroup>
+                                    <optgroup label="Indices">
+                                        <option value="US30">US30 (Dow Jones)</option>
+                                        <option value="NAS100">NAS100 (Nasdaq)</option>
+                                        <option value="SPX500">SPX500 (S&P 500)</option>
+                                    </optgroup>
+                                    <optgroup label="Crypto">
+                                        <option value="BTC/USD">BTC/USD (Bitcoin)</option>
+                                        <option value="ETH/USD">ETH/USD (Ethereum)</option>
+                                    </optgroup>
+                                    <optgroup label="Commodities">
+                                        <option value="USOIL">USOIL (Crude Oil)</option>
+                                        <option value="UKOIL">UKOIL (Brent Oil)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-coins"></i> P&L ($)</label>
+                                <div class="input-with-icon">
+                                    <span class="input-icon">$</span>
+                                    <input type="number" step="0.01" id="pnlAmount" class="form-input" placeholder="Enter amount" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-sticky-note"></i> Notes</label>
+                                <input type="text" id="tradeNotes" class="form-input" placeholder="Trade setup, emotions, lessons...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-primary" onclick="saveTrade()">
+                                <i class="fas fa-save"></i> Save Trade
+                            </button>
+                            <button type="button" class="btn-secondary" onclick="saveAndDownloadTrade()">
+                                <i class="fas fa-download"></i> Save & Download PDF
+                            </button>
+                            <button type="reset" class="btn-outline">
+                                <i class="fas fa-redo"></i> Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Recent Trades & Withdrawals -->
+                <div class="recent-trades-card">
+                    <div class="section-header">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <button class="edit-trades-btn" onclick="editTodayTrades()">
+                            <i class="fas fa-edit"></i> Edit Today's Activity
+                        </button>
+                    </div>
+                    <div class="trades-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Type</th>
+                                    <th>Details</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentActivityTable">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Journal Page -->
+            <section class="page" id="journal">
+                <div class="page-header">
+                    <h2>Trade Journal</h2>
+                    <button class="export-btn" onclick="exportJournalPDF()">
+                        <i class="fas fa-file-pdf"></i> Export Journal PDF
+                    </button>
+                </div>
+                
+                <!-- Withdrawals Section in Journal -->
+                <div class="withdrawals-section">
+                    <h3><i class="fas fa-money-bill-wave"></i> Withdrawals History</h3>
+                    <div class="withdrawals-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Broker</th>
+                                    <th>Amount</th>
+                                    <th>Balance Before</th>
+                                    <th>Balance After</th>
+                                    <th>Notes</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="withdrawalsTable">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="trades-table full-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Trade #</th>
+                                <th>Pair</th>
+                                <th>Strategy</th>
+                                <th>P&L</th>
+                                <th>Notes</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allTradesTable">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Page -->
+            <section class="page" id="analytics">
+                <div class="page-header">
+                    <h2>Advanced Analytics</h2>
+                    <button class="export-btn" onclick="exportAnalyticsPDF()">
+                        <i class="fas fa-chart-bar"></i> Export Analytics PDF
+                    </button>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-pie"></i> Winning vs Losing</h3>
+                        </div>
+                        <div class="chart-canvas-container">
+                            <canvas id="winLossChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-pie"></i> Win/Loss Ratio</h3>
+                            <div class="win-rate">
+                                <span class="rate-value" id="winLossRatioValue">0:0</span>
+                                <span class="rate-label">Win:Loss Ratio</span>
+                            </div>
+                        </div>
+                        <div class="chart-canvas-container half-donut-container">
+                            <canvas id="winLossRatioChart"></canvas>
+                        </div>
+                        <div class="chart-download-btn">
+                            <button class="btn-secondary" onclick="downloadChartAsPDF('winLossRatioChart', 'Win_Loss_Ratio')">
+                                <i class="fas fa-download"></i> Download Chart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-calendar-alt"></i> Daily P&L Calendar</h3>
+                        </div>
+                        <div class="calendar-container">
+                            <div class="calendar-controls">
+                                <button onclick="changeCalendarMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <span id="calendarMonth">January 2024</span>
+                                <button onclick="changeCalendarMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Goals Page -->
+            <section class="page" id="goals">
+                <div class="page-header">
+                    <h2>Trading Goals</h2>
+                </div>
+                
+                <div class="goals-container">
+                    <div class="goal-input-group">
+                        <label><i class="fas fa-bullseye"></i> Set Your Trading Goals</label>
+                        <textarea id="goalInput" placeholder="Write your trading goals, targets, and milestones here. Be specific about what you want to achieve..."></textarea>
+                        <div class="form-actions">
+                            <button class="btn-primary" onclick="saveGoal()">
+                                <i class="fas fa-save"></i> Save Goal
+                            </button>
+                            <button class="btn-secondary" onclick="clearGoal()">
+                                <i class="fas fa-redo"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="goals-list" id="goalsList">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Page -->
+            <section class="page" id="community">
+                <div class="page-header">
+                    <h2>Join Our Community</h2>
+                </div>
+                
+                <div class="community-grid">
+                    <div class="community-card telegram-card">
+                        <div class="community-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Telegram Group</h3>
+                        <p>Join our active Telegram community for daily market analysis, trade ideas, and discussions with fellow traders.</p>
+                        <a href="https://t.me/fxtaetrader" class="community-btn" target="_blank">
+                            <i class="fab fa-telegram"></i> Join Telegram
+                        </a>
+                    </div>
+                    
+                    <div class="community-card youtube-card">
+                        <div class="community-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <h3>YouTube Channel</h3>
+                        <p>Subscribe to our YouTube channel for educational content, live trading sessions, and market insights.</p>
+                        <a href="https://www.youtube.com/@fxtaetrader" class="community-btn" target="_blank">
+                            <i class="fab fa-youtube"></i> Subscribe
+                        </a>
+                    </div>
+                    
+                    <div class="community-card instagram-card">
+                        <div class="community-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3>Instagram</h3>
+                        <p>Follow us on Instagram for trading psychology tips, daily motivation, and behind-the-scenes content.</p>
+                        <a href="https://instagram.com/fxtaetrader" class="community-btn" target="_blank">
+                            <i class="fab fa-instagram"></i> Follow
+                        </a>
+                    </div>
+                    
+                    <div class="community-card tiktok-card">
+                        <div class="community-icon">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <h3>TikTok</h3>
+                        <p>Watch short, engaging trading tips and market analysis on our TikTok channel.</p>
+                        <a href="https://tiktok.com/@fx_tae_trader" class="community-btn" target="_blank">
+                            <i class="fab fa-tiktok"></i> Follow
+                        </a>
+                    </div>
+                    
+                    <div class="community-card facebook-card">
+                        <div class="community-icon">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <h3>Facebook</h3>
+                        <p>Connect with us on Facebook for community events, live Q&A sessions, and trading resources.</p>
+                        <a href="https://facebook.com/fxtaetrader" class="community-btn" target="_blank">
+                            <i class="fab fa-facebook"></i> Like Page
+                        </a>
+                    </div>
+                    
+                    <div class="community-card academy-card">
+                        <div class="community-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Exclusive Academy</h3>
+                        <p>Join our premium trading academy for personalized coaching, advanced strategies, and mentorship.</p>
+                        <a href="https://fxtaetrader.page.gd/" class="community-btn academy-btn" target="_blank">
+                            <i class="fas fa-rocket"></i> Join Academy
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trader's Mindset Page -->
+            <section class="page" id="mindset">
+                <div class="page-header">
+                    <h2>Trader's Mindset</h2>
+                </div>
+                
+                <div class="motivation-quote">
+                    <i class="fas fa-quote-left"></i>
+                    <h3>"The goal of a successful trader is to make the best trades. Money is secondary."</h3>
+                    <p>- Alexander Elder</p>
+                </div>
+                
+                <div class="inspiration-grid">
+                    <div class="inspiration-card">
+                        <div class="inspiration-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h4>1. Discipline</h4>
+                        <p>Stick to your trading plan regardless of emotions. Every trade must follow your rules.</p>
+                        <div class="inspiration-quote">
+                            <i>"Discipline is the bridge between goals and accomplishment." - Jim Rohn</i>
+                        </div>
+                    </div>
+                    
+                    <div class="inspiration-card">
+                        <div class="inspiration-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <h4>2. Patience</h4>
+                        <p>Wait for the right setups. The market will always provide opportunities.</p>
+                        <div class="inspiration-quote">
+                            <i>"The stock market is a device for transferring money from the impatient to the patient." - Warren Buffett</i>
+                        </div>
+                    </div>
+                    
+                    <div class="inspiration-card">
+                        <div class="inspiration-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>3. Psychology</h4>
+                        <p>Master your emotions. Fear and greed are your biggest enemies.</p>
+                        <div class="inspiration-quote">
+                            <i>"The most important quality for an investor is temperament, not intellect." - Warren Buffett</i>
+                        </div>
+                    </div>
+                    
+                    <div class="inspiration-card">
+                        <div class="inspiration-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>4. Journaling</h4>
+                        <p>Record every trade. Review regularly. Learn from both wins and losses.</p>
+                        <div class="inspiration-quote">
+                            <i>"Without self-reflection, we go blindly on our way, creating more unintended consequences." - Margaret J. Wheatley</i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mindset-tips">
+                    <h3><i class="fas fa-lightbulb"></i> Mindset Tips</h3>
+                    <div class="tips-grid">
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Focus on process, not profits</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Accept losses as part of the game</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Stay consistent with your strategy</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Never trade with emotions</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Keep learning and adapting</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Maintain a healthy work-life balance</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section class="page" id="settings">
+                <div class="page-header">
+                    <h2>Settings</h2>
+                </div>
+                
+                <div class="settings-container">
+                    <!-- Account Credentials -->
+                    <div class="settings-group">
+                        <h3><i class="fas fa-user-circle"></i> Account Credentials</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Username</span>
+                                <small>Edit your display name</small>
+                            </div>
+                            <div class="setting-control">
+                                <input type="text" id="editUsername" class="form-input" placeholder="Enter new username">
+                                <button class="btn-secondary" onclick="saveUsername()">
+                                    <i class="fas fa-save"></i> Save
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Email</span>
+                                <small>Account email (cannot be changed)</small>
+                            </div>
+                            <div class="setting-control">
+                                <input type="email" id="userEmailDisplay" class="form-input" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Password</span>
+                                <small>Change your password</small>
+                            </div>
+                            <button class="btn-secondary" onclick="showChangePasswordModal()">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Trading Rules -->
+                    <div class="settings-group">
+                        <h3><i class="fas fa-scroll"></i> Trading Rules</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Trading Rules Editor</span>
+                                <small>Edit and save your personal trading rules</small>
+                            </div>
+                            <button class="btn-secondary" onclick="showTradingRulesModal()">
+                                <i class="fas fa-edit"></i> Edit Rules
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3><i class="fas fa-palette"></i> Theme Settings</h3>
+                        <div class="theme-toggle">
+                            <button class="theme-btn active" onclick="setTheme('light')">
+                                <i class="fas fa-sun"></i> Light Theme
+                            </button>
+                            <button class="theme-btn" onclick="setTheme('dark')">
+                                <i class="fas fa-moon"></i> Dark Theme
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Trade Reminders</span>
+                                <small>Get reminders for trade entries</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="tradeReminders" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Daily Summary</span>
+                                <small>Receive daily performance summary</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="dailySummary" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Withdrawal Alerts</span>
+                                <small>Get alerts for withdrawal activities</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="withdrawalAlerts" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3><i class="fas fa-database"></i> Data Management</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Export Options</span>
+                                <small>Select what data to export</small>
+                            </div>
+                            <div class="export-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="exportTrades" checked> Trades
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="exportWithdrawals" checked> Withdrawals
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="exportGoals" checked> Goals
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="exportSettings" checked> Settings
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Export Selected Data (PDF)</span>
+                                <small>Download selected data as styled PDF</small>
+                            </div>
+                            <button class="btn-secondary" onclick="exportSelectedDataPDF()">
+                                <i class="fas fa-download"></i> Export Selected PDF
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Export All Data (PDF)</span>
+                                <small>Download all trades and settings as PDF</small>
+                            </div>
+                            <button class="btn-secondary" onclick="exportAllDataPDF()">
+                                <i class="fas fa-download"></i> Export All PDF
+                            </button>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
+                                <span>Clear All Data</span>
+                                <small>Delete all trades and reset account</small>
+                            </div>
+                            <button class="btn-outline" onclick="clearAllData()">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Page -->
+            <section class="page" id="contact">
+                <div class="page-header">
+                    <h2>Contact FX Tae</h2>
+                </div>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3><i class="fas fa-info-circle"></i> Contact Information</h3>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>fxtae.chartprogram@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+256 778997909</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p>+256 778997909</p>
+                            </div>
+                        </div>
+                        
+                        <h3 class="social-title"><i class="fas fa-share-alt"></i> Social Media</h3>
+                        
+                        <div class="social-links">
+                            <a href="https://www.tiktok.com/@fx_tae_trader" class="social-link" target="_blank">
+                                <i class="fab fa-tiktok"></i> @fx_tae_trader
+                            </a>
+                            
+                            <a href="https://www.instagram.com/fxtaetrader" class="social-link" target="_blank">
+                                <i class="fab fa-instagram"></i> @fxtaetrader
+                            </a>
+                            
+                            <a href="https://www.youtube.com/@fxtaetrader" class="social-link" target="_blank">
+                                <i class="fab fa-youtube"></i> @fxtaetrader
+                            </a>
+                            
+                            <a href="https://www.facebook.com/fxtaetrader" class="social-link" target="_blank">
+                                <i class="fab fa-facebook"></i> @FXTaeTrader
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mentorship-card">
+                        <div class="mentorship-badge">
+                            <i class="fas fa-crown"></i> 1% CIRCLE
+                        </div>
+                        <h3><i class="fas fa-graduation-cap"></i> Join 1% Trading Circle</h3>
+                        <p>Ready to level up your trading? Join FX Tae's exclusive mentorship program for personalized coaching, advanced strategies, and direct mentorship.</p>
+                        <a href="https://fxtaetrader.page.gd/" class="mentorship-btn" target="_blank">
+                            <i class="fas fa-rocket"></i> Apply for Mentorship
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="editBalanceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Edit Account Balance</h3>
+                <button class="close-modal" onclick="closeEditBalanceModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>New Account Balance ($)</label>
+                    <input type="number" id="newBalanceInput" class="form-input" placeholder="Enter new balance">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="confirmBalanceUpdate()">Update Balance</button>
+                    <button class="btn-outline" onclick="closeEditBalanceModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="editTradesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Edit Today's Trades</h3>
+                <button class="close-modal" onclick="closeEditTradesModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="todayTradesEditList"></div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="saveEditedTrades()">Save Changes</button>
+                    <button class="btn-outline" onclick="closeEditTradesModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trading Rules Modal -->
+    <div class="modal" id="tradingRulesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-scroll"></i> Trading Rules Editor</h3>
+                <button class="close-modal" onclick="closeTradingRulesModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Your Trading Rules</label>
+                    <textarea id="tradingRulesInput" class="form-input" rows="10" placeholder="Enter your trading rules here...">
+1. Risk Management:
+   - Never risk more than 2% per trade
+   - Maximum 4 trades per day
+   - Stop loss is mandatory
+
+2. Entry Rules:
+   - Wait for confirmation before entry
+   - Only trade during high liquidity hours
+   - Follow the trend direction
+
+3. Exit Rules:
+   - Take profit at 2:1 risk-reward ratio
+   - Move stop loss to breakeven at 1:1
+   - Close all trades before market close
+
+4. Psychology:
+   - No revenge trading
+   - Take breaks after 2 consecutive losses
+   - Review journal daily
+                    </textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="saveTradingRules()">
+                        <i class="fas fa-save"></i> Save & Download PDF
+                    </button>
+                    <button class="btn-outline" onclick="closeTradingRulesModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> Change Password</h3>
+                <button class="close-modal" onclick="closeChangePasswordModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" id="currentPassword" class="form-input" placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" class="form-input" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" class="form-input" placeholder="Confirm new password">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="saveNewPassword()">Change Password</button>
+                    <button class="btn-outline" onclick="closeChangePasswordModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
