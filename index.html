@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fx Tae Charts Trading Journal | Professional Trading Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-page">
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Top Right Social -->
+        <div class="top-right-social">
+            <div class="social-icons-top">
+                <a href="https://tiktok.com/@fx_tae_trader" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://instagram.com/fxtaetrader" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/fxtaetrader" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://t.me/fxtaetrader" target="_blank"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="main-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Fx Tae Charts Trading Journal</h1>
+                    <span>Join The 1% Fx Trading Circle</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Master Your Trading Journey</h1>
+                <p class="hero-subtitle">
+                    Welcome to "Fx Tae Charts Trading Journal" professional trading journal platform. Track every trade, analyze your performance, 
+                    and join an exclusive community of disciplined traders. Whether you're just starting or are a seasoned 
+                    professional, our tools will help you achieve consistent profitability.
+                </p>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Smart Journaling</h4>
+                            <p>Record & analyze every trade</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Live Analytics</h4>
+                            <p>Real-time performance tracking</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>1% Community</h4>
+                            <p>Join elite traders circle</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Personal Coaching</h4>
+                            <p>Learn from Fx Tae himself</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fx Tae Charts Trading Journal Section -->
+                <div class="fx-tae-section">
+                    <h3><i class="fas fa-chart-line"></i> Fx Tae Charts Trading Journal</h3>
+                    <p>Your ultimate trading companion for systematic journaling, performance analysis, and continuous improvement. Join thousands of traders who have transformed their results.</p>
+                    
+                    <div class="fx-social-links">
+                        <a href="https://t.me/fxtaetrader" target="_blank">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram Community</span>
+                        </a>
+                        <a href="https://www.youtube.com/@fxtaetrader" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube Channel</span>
+                        </a>
+                        <a href="https://instagram.com/fxtaetrader" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://tiktok.com/@fx_tae_trader" target="_blank">
+                            <i class="fab fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auth Section -->
+            <div class="auth-section">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="signup">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginEmail"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your registered email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword"><i class="fas fa-lock"></i> Password</label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" data-target="loginPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-btn">Login to Dashboard</button>
+                    
+                    <div class="divider">
+                        <span>OR CONTINUE WITH</span>
+                    </div>
+                    
+                    <button type="button" class="google-auth-btn" onclick="handleGoogleAuth('login')">
+                        <i class="fab fa-google"></i>
+                        Google Account
+                    </button>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupName"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword"><i class="fas fa-lock"></i> Password</label>
+                        <div class="password-input">
+                            <input type="password" id="signupPassword" class="form-control" placeholder="Create a strong password" required>
+                            <button type="button" class="toggle-password" data-target="signupPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="password-hint">Minimum 8 characters with letters and numbers</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password" required>
+                    </div>
+                    <div class="terms">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+                    <button type="submit" class="auth-btn">Create Account</button>
+                    
+                    <div class="divider">
+                        <span>OR CONTINUE WITH</span>
+                    </div>
+                    
+                    <button type="button" class="google-auth-btn" onclick="handleGoogleAuth('signup')">
+                        <i class="fab fa-google"></i>
+                        Sign up with Google
+                    </button>
+                </form>
+                
+                <!-- Contact Info Section -->
+                <div class="contact-info-side">
+                    <h4><i class="fas fa-comments"></i> Feel Free to Contact Us</h4>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span>Email</span>
+                                <strong>fxtae.chartprogram@gmail.com</strong>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <span>Phone</span>
+                                <strong>+256 778997909</strong>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <span>WhatsApp</span>
+                                <strong>+256 778997909</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Fx Tae Charts Trading Journal. All rights reserved.</p>
+            <p>Professional Trading Platform for The 1% Trading Circle</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Secure user storage
+        const USERS_KEY = 'fxTaeUsers';
+        const CURRENT_USER_KEY = 'fxTaeCurrentUser';
+
+        // Initialize users storage
+        function initializeUsers() {
+            if (!localStorage.getItem(USERS_KEY)) {
+                localStorage.setItem(USERS_KEY, JSON.stringify([]));
+            }
+        }
+
+        // Get all users
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+        }
+
+        // Save user
+        function saveUser(user) {
+            const users = getUsers();
+            // Check if email already exists
+            if (users.some(u => u.email === user.email)) {
+                return { success: false, message: 'Email already registered' };
+            }
+            users.push(user);
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            return { success: true };
+        }
+
+        // Authenticate user
+        function authenticateUser(email, password) {
+            const users = getUsers();
+            const user = users.find(u => u.email === email && u.password === password);
+            return user ? { success: true, user } : { success: false, message: 'Invalid email or password' };
+        }
+
+        // Set current user
+        function setCurrentUser(user) {
+            // Store minimal info without password
+            const safeUser = {
+                name: user.name,
+                email: user.email,
+                createdAt: user.createdAt
+            };
+            localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(safeUser));
+            sessionStorage.setItem('fxTaeAuthenticated', 'true');
+        }
+
+        // Check if user is authenticated
+        function isAuthenticated() {
+            return sessionStorage.getItem('fxTaeAuthenticated') === 'true';
+        }
+
+        // Password validation
+        function validatePassword(password) {
+            return password.length >= 8 && /[a-zA-Z]/.test(password) && /\d/.test(password);
+        }
+
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Auth tabs switching
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById(`${tabName}Form`).classList.add('active');
+            });
+        });
+
+        // Password visibility toggle
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    input.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            });
+        });
+
+        // Sign Up Form Submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            if (!name || !email || !password || !confirmPassword) {
+                showToast('Please fill all fields', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            if (!validatePassword(password)) {
+                showToast('Password must be at least 8 characters with letters and numbers', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showToast('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (!document.getElementById('agreeTerms').checked) {
+                showToast('Please accept the terms and conditions', 'error');
+                return;
+            }
+            
+            // Create user object
+            const user = {
+                id: Date.now(),
+                name,
+                email,
+                password,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save user
+            const result = saveUser(user);
+            if (!result.success) {
+                showToast(result.message, 'error');
+                return;
+            }
+            
+            // Set as current user and redirect
+            setCurrentUser(user);
+            showToast('Account created successfully! Redirecting...', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        });
+
+        // Login Form Submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showToast('Please fill all fields', 'error');
+                return;
+            }
+            
+            // Authenticate
+            const result = authenticateUser(email, password);
+            if (!result.success) {
+                showToast(result.message, 'error');
+                return;
+            }
+            
+            // Set as current user and redirect
+            setCurrentUser(result.user);
+            showToast('Login successful! Redirecting...', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        });
+
+        // Google Auth Handler
+        function handleGoogleAuth(type) {
+            showToast('Please select your Google account to continue...', 'info');
+            
+            // Simulate Google auth flow
+            setTimeout(() => {
+                const email = `user${Date.now()}@example.com`;
+                const name = 'Google User';
+                
+                if (type === 'signup') {
+                    const user = {
+                        id: Date.now(),
+                        name,
+                        email,
+                        password: 'google_auth',
+                        createdAt: new Date().toISOString(),
+                        isGoogleUser: true
+                    };
+                    
+                    // Save Google user
+                    const users = getUsers();
+                    if (!users.some(u => u.email === email)) {
+                        users.push(user);
+                        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+                    }
+                    
+                    setCurrentUser(user);
+                    showToast('Google account connected! Redirecting...', 'success');
+                } else {
+                    // For login, check if user exists
+                    const users = getUsers();
+                    const user = users.find(u => u.email === email);
+                    
+                    if (user) {
+                        setCurrentUser(user);
+                        showToast('Login successful! Redirecting...', 'success');
+                    } else {
+                        showToast('No account found with this Google account. Please sign up first.', 'error');
+                        return;
+                    }
+                }
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }, 1000);
+        }
+
+        // Toast notification
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (toast.parentNode === container) {
+                        container.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeUsers();
+            
+            // Redirect to dashboard if already authenticated
+            if (isAuthenticated()) {
+                window.location.href = 'dashboard.html';
+            }
+            
+            // Set today's date in forms
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('loginForm').reset();
+            document.getElementById('signupForm').reset();
+        });
+    </script>
+</body>
+</html>
